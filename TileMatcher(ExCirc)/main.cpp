@@ -1,6 +1,7 @@
 #include "vector.h"
 #include <stdlib.h>
-#include "glut.h"
+//#include "gl/glut.h"
+#include "gl\glut.h"
 
 #include "house.h"
 #include <math.h>
@@ -124,45 +125,45 @@ void reshape(int w, int h)
 }
 void mouse(int button, int state, int x, int y)
 {
-    int view[4];
-//   double modelview[16];
-   double proj[16];
-   glGetIntegerv(GL_VIEWPORT,view);	
-   glGetDoublev( GL_PROJECTION_MATRIX,proj);
-   int realy = view[3] - (GLint) y - 1;
-   int check = gluUnProject(x,realy,-1,WorldT,proj,view,objectNear,objectNear+1,objectNear+2);
-     cout<< "unprojected near co-ords are ";
-	for (int i =0;i<4;i++){
-    cout <<objectNear[i]<< " ";
-    } cout<<"\n";
-	  check = gluUnProject(x,realy,1,WorldT,proj,view,objectFar,objectFar+1,objectFar+2);
-    cout<< "unprojected far co-ords are ";
-	for (int i =0;i<4;i++){
-    cout <<objectFar[i]<< " ";
-    } cout<<"\n";
-    //prepare for collision test by making a ray
-	Vector d(objectFar[0],objectFar[1],objectFar[2]);
-    Vector p(objectNear[0],objectNear[1],objectNear[2]);
-	Ray ray1;  //this is the ray cast
-	ray1.SetOrigin(p);      //initialise ray with origin and direction vector
-	ray1.SetDirection(d-p);
-	if (myhouse.isBoundSphereIntersect(ray1))
-		cout<< "hit"<<endl;
-	else
-		cout<<"miss"<<endl;
+	if (state == GLUT_DOWN) {
+		int view[4];
+		//   double modelview[16];
+		double proj[16];
+		glGetIntegerv(GL_VIEWPORT, view);
+		glGetDoublev(GL_PROJECTION_MATRIX, proj);
+		int realy = view[3] - (GLint)y - 1;
+		int check = gluUnProject(x, realy, -1, WorldT, proj, view, objectNear, objectNear + 1, objectNear + 2);
+		cout << "unprojected near co-ords are ";
+		for (int i = 0; i<4; i++) {
+			cout << objectNear[i] << " ";
+		} cout << "\n";
+		check = gluUnProject(x, realy, 1, WorldT, proj, view, objectFar, objectFar + 1, objectFar + 2);
+		cout << "unprojected far co-ords are ";
+		for (int i = 0; i<4; i++) {
+			cout << objectFar[i] << " ";
+		} cout << "\n";
+		//prepare for collision test by making a ray
+		Vector d(objectFar[0], objectFar[1], objectFar[2]);
+		Vector p(objectNear[0], objectNear[1], objectNear[2]);
+		Ray ray1;  //this is the ray cast
+		ray1.SetOrigin(p);      //initialise ray with origin and direction vector
+		ray1.SetDirection(d - p);
+		if (myhouse.isBoundSphereIntersect(ray1))
+			cout << "hit" << endl;
+		else
+			cout << "miss" << endl;
 
 
-	glutPostRedisplay();
+		glutPostRedisplay();
 
- 
-
+	}
 }
    
 int main(int argc, char** argv)
 {
 	  glutInit(&argc,argv);
 	  glutInitDisplayMode(GLUT_DOUBLE |GLUT_RGB);
-	  glutInitWindowSize(250,250);
+	  glutInitWindowSize(800,800);
 	  glutInitWindowPosition(100,100);
 	  glutCreateWindow("3D house");
 	  init();
@@ -170,6 +171,7 @@ int main(int argc, char** argv)
 	  glutDisplayFunc(display);
 	  glutKeyboardFunc(keyboardread);
       glutMouseFunc(mouse);
+
 	  glutMainLoop();
 	  return 0;
 }
