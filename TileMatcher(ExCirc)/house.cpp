@@ -3,7 +3,7 @@ using namespace std;
 #include "vector.h"
 #include "house.h"
 #include "glut.h"
-
+#include "box.h"
 
 House::House() : position(0,0,0),BVposition(0,0,0){
 	intersect = false;

@@ -2,14 +2,20 @@
 #include <stdlib.h>
 //#include "gl/glut.h"
 #include "gl\glut.h"
-
+#include "box.h"
 #include "house.h"
+#include "vector.h"
+#include <vector>
+#include "PairsGame.h"
 #include <math.h>
 #include <iostream>
+#include <ctime>
+#include <algorithm>
 using namespace std;
 void init(void);
 void display(void);
 void drawHouse(void);
+PairsGame game;
 House myhouse;
 static int theta = 0;
 
@@ -73,6 +79,18 @@ void keyboardread(unsigned char key, int x,int y)
 void drawHouse(void)
 	{
     myhouse.draw();
+}
+
+
+void drawBoxes() {
+	for (Box box : game.boxes) {
+		glPushMatrix();
+		glTranslatef(box.x, box.y, box.z);
+
+		glColor3f(box.r, box.g, box.b);
+		box.draw();
+		glPopMatrix();
+	}
 }
 void display(void)
 {
