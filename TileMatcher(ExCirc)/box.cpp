@@ -1,6 +1,7 @@
 #include "box.h"
 #include <ctime>
 #include <algorithm>
+#include "PairsGame.h"
 Box::Box(GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat red, GLfloat green, GLfloat blue) : position(0, 0, 0), BVposition(0, 0, 0) {
 	x = xPos;
 	y = yPos;
@@ -15,10 +16,7 @@ Box::Box(GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat red, GLfloat green, G
 	BVposition.y = position.y - y;
 	BVposition.z = position.z - z;
 }
-float Box::randColour()
-{
-	return (double)rand() / (RAND_MAX + 1.0);
-}
+
 void Box::draw() {
 	glutWireCube(1);
 }

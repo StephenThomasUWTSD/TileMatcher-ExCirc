@@ -1,4 +1,4 @@
-#include "vector.h"
+//#include "vector.h"
 #include <stdlib.h>
 //#include "gl/glut.h"
 #include "gl\glut.h"
@@ -17,6 +17,7 @@ void display(void);
 void drawHouse(void);
 PairsGame game;
 House myhouse;
+//Box box;
 static int theta = 0;
 
 int winview[2]; //contains window view width [0] and height [1]
@@ -28,6 +29,16 @@ float fov = 60;
    double objectNear[4];
     double objectFar[4];
 
+void drawBoxes() {
+	for (Box box : game.boxes) {
+		glPushMatrix();
+		glTranslatef(box.x, box.y, box.z);
+
+		glColor3f(box.r, box.g, box.b);
+		box.draw();
+		glPopMatrix();
+	}
+}
 
 void init(void)
 {
@@ -82,16 +93,7 @@ void drawHouse(void)
 }
 
 
-void drawBoxes() {
-	for (Box box : game.boxes) {
-		glPushMatrix();
-		glTranslatef(box.x, box.y, box.z);
 
-		glColor3f(box.r, box.g, box.b);
-		box.draw();
-		glPopMatrix();
-	}
-}
 void display(void)
 {
 //select clearing background colour
@@ -114,9 +116,9 @@ void display(void)
 	    glVertex3d(objectNear[0]+0.1,objectNear[1],objectNear[2]);
 
 	glEnd();
-
-   drawHouse();
-    glPushMatrix();
+	/*
+    drawHouse();
+	glPushMatrix();
     glTranslatef(1.0,0.0,0.0);
     drawHouse();
     glPopMatrix();
@@ -125,6 +127,12 @@ void display(void)
     glRotatef(90.0,0.0,1.0,0.0);
     drawHouse();
 	glPopMatrix();
+	glPushMatrix();
+	*/
+	
+	drawBoxes();
+	glPopMatrix();
+	
 	//glutWireCube(1.0);
 	//glFlush();
 	  glutSwapBuffers();

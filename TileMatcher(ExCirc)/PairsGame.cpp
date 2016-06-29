@@ -2,7 +2,7 @@
 #include <ctime>
 #include <algorithm>
 #include "box.h"
-Box box;
+
 PairsGame::PairsGame()
 {
 	GenerateBoxes(GRID_WIDTH * GRID_HEIGHT);
@@ -10,7 +10,10 @@ PairsGame::PairsGame()
 
 	positionsGenerated = false;
 }
-
+float PairsGame::randColour()
+{
+	return (double)rand() / (RAND_MAX + 1.0);
+}
 
 PairsGame::~PairsGame()
 {
@@ -38,7 +41,7 @@ void PairsGame::InitialiseBoxPositions(int width, int height) {
 void PairsGame::GenerateBoxes(int numBoxes) {
 	for (int boxIndex = 0; boxIndex < numBoxes; boxIndex += 2)
 	{
-		float r = box.randColour(), g = box.randColour(), b = box.randColour();
+		float r = randColour(), g = randColour(), b = randColour();
 		Box first = { 0,0,0,r,g,b };
 		Box second = { 0,0,0,r,g,b };
 

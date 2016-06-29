@@ -10,7 +10,7 @@ public:
 
 	void draw(void);
 	bool isBoundSphereIntersect(Ray v);
-	float randColour();
+	//float randColour();
 	GLfloat x, y, z;
 	GLfloat r, g, b;
 	bool intersect;

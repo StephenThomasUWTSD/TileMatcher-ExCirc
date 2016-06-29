@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-
+#include "box.h"
 class PairsGame
 {
 private:
@@ -18,7 +18,7 @@ public:
 	PairsGame();
 	~PairsGame();
 	void ShuffleBoxes(void);
-	
+	float randColour();
 	std::vector<Box> boxes;
 	std::vector<BoxPositions> boxPositions;
 
